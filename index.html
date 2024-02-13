@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>WebCat</title>
+  </head>
+  <body>	
+	<h1 id="Flength">Hello world</h1>
+	<p id="mfish">工程创建成功</p>  
+ <button onclick="mfish()">mfish</button>
+   <!--弹窗-->
+   <dialog id="Dlog">
+  <!--提示-->
+    <div id="Ttop">
+     <div id="Tpeitu"></div>
+     <small id="TCtouxian">提示</small>
+    </div>
+    <!--提示区-->
+    <div id="Tshi"></div>
+    <!--按钮开关-->
+    <div id="Tbutton" class="miss">
+    </div>
+  </dialog>
+ <script>
+ function next(){
+    document.getElementById("Dlog").className="pic2";
+}
+  function Arg(){
+        this.tishikuang=function (Text){
+        Dlog.showModal();
+        button=`<div onclick="setTimeout(Yes,50)">确定</div>`;
+        TanCuan(Text,button);
+        }
+        this.querenkuang=function (Text){
+         Dlog.showModal();
+         button=`
+         <div onclick="setTimeout(Yes,50)">确定</div>
+         <div onclick="setTimeout(No,50)">取消</div>
+         `;
+         TanCuan(Text,button);   
+        }
+        this.shurukuang=function (Text){
+         window.prompt(Text);
+        }
+        }
+      var go= new Arg();
+      Flength.onclick=function (){
+      go.querenkuang('你好世界');
+      }
+    //弹窗内容
+    function TanCuan(Text,button){
+     Tshi.innerHTML=Text;
+     Tbutton.innerHTML =button;
+     }
+   //弹窗取消事件
+    this.No=function (){ 
+     Dlog.close();
+      }
+    //弹窗确认事件
+   this.Yes=function (){ 
+    alert();
+    }
+ </script>
+ <style>
+   *{
+    padding:0;
+    }
+    :root {
+  --Timg:50px;
+  --TimgMargin:2%;
+  --Tcolor:#007bff;
+  --Twidth:96%;
+   }
+ 
+ #Dlog{
+   width:90%;
+   height:30vh;
+   border: 2px solid Transparent;
+   border-radius:2px;
+   animation: DlogA 0.2s;
+
+   }
+ @keyframes DlogA{
+             0%{
+             width:0%;
+             height:0vh;
+             background-color:black;
+             opacity:0;
+             }
+             100%{
+              width:90%;
+              height:30vh;
+              background-color:white;
+              opacity:1;
+             }
+        }
+ #Ttop{
+   height:var(--Timg);
+   margin:var(--TimgMargin);
+   }
+ #Tpeitu{
+   width: var(--Timg);
+   height: var(--Timg);
+
+   background-size: 100% 100% !important;
+   float:left;
+   }
+ dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+ #TCtouxian{
+   font-size:5vw;
+   color: var(--Tcolor);
+   margin:1%;
+   float:left;
+   }
+  #Tshi{
+    width:var(--Twidth);
+    height:55%;
+    margin:var(--TimgMargin);
+    overflow-y: auto;
+    font-size:3.5vw;
+    text-decoration:underline
+    }
+  #Tshi b{
+    color:#ff587d;
+    }
+  #Tbutton{
+    position:absolute;
+    width:310px;
+    height:25px;
+    margin:var(--TimgMargin);
+    bottom:0;
+    }
+   #Tbutton div{
+     float:right;
+     margin:0 var(--TimgMargin);
+     background-color: Transparent;
+     border-radius:2px;
+     color:black;
+     }
+   #Tbutton :hover{
+            background-color:var(--Tcolor);
+            color: white;
+            border-radius:2px;
+            border: 1px solid #eeeeee;
+        }
+ </style>
+  </body>
+</html>
