@@ -1,149 +1,165 @@
-<!DOCTYPE html>
-<html>
-  <head>
-	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>蔡富清的第一个链接</title>
-  </head>
-  <body>	
-	<h1 id="Flength">弹窗</h1>
-	<p id="mfish">我是谁？我在哪里？</p> 
-   <!--弹窗-->
-   <dialog id="Dlog">
-  <!--提示-->
-    <div id="Ttop">
-     <div id="Tpeitu"></div>
-     <small id="TCtouxian">提示</small>
-    </div>
-    <!--提示区-->
-    <div id="Tshi"></div>
-    <!--按钮开关-->
-    <div id="Tbutton" class="miss">
-    </div>
-  </dialog>
- <script>
- function next(){
-    document.getElementById("Dlog").className="pic2";
+ <html>
+ <head></head>
+ <body>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>梦生缘</title>
+   <body>
+  <input type="checkbox" id="cb">
+  <div class="navm">
+  <div id="Ckuang"><div id="CFkuang"></div><div id="CNkuang"><div id="Ctouxian"></div></div></div></div>
+  <label for="cb" class="cc"></label>
+  <div id="top"><div id="daohanglan"><button>首页</button><button>随机</button><button></button><button></button></div></div>
+  <div id="kuang"></div>
+  <script>
+  
+  function name(){
+    var time=new Date()
+    var ri = time.getDate();
+    if(ri<10) ri = '0' + ri;
+    var ww = time.getDay();
+    if (ww==0) ww="星期天";
+    if (ww==1) ww="星期一";
+    if (ww==2) ww="星期二";
+    if (ww==3) ww="星期三";
+    if (ww==4) ww="星期四";
+    if (ww==5) ww="星期五";
+    if (ww==6) ww="星期六";
+   time=ri;
+  times=`<div id="kuai"><p>${time}</p><small>${ww}</small></div>`;
+  return times;
+  }
+  CFkuang.innerHTML=name();
+  </script>
+  <style>
+  body{
+    background-color:black;
+    }
+::-webkit-scrollbar {
+/*隐藏滚轮*/
+display: none;
 }
-  function Arg(){
-        this.tishikuang=function (Text){
-        Dlog.showModal();
-        button=`<div onclick="setTimeout(Yes,50)">确定</div>`;
-        TanCuan(Text,button);
-        }
-        this.querenkuang=function (Text){
-         Dlog.showModal();
-         button=`
-         <div onclick="setTimeout(Yes,50)">确定</div>
-         <div onclick="setTimeout(No,50)">取消</div>
-         `;
-         TanCuan(Text,button);   
-        }
-        this.shurukuang=function (Text){
-         window.prompt(Text);
-        }
-        }
-      var go= new Arg();
-      Flength.onclick=function (){
-      go.querenkuang('我要玩原神');
-      }
-    //弹窗内容
-    function TanCuan(Text,button){
-     Tshi.innerHTML=Text;
-     Tbutton.innerHTML =button;
-     }
-   //弹窗取消事件
-    this.No=function (){ 
-     Dlog.close();
-      }
-    //弹窗确认事件
-   this.Yes=function (){ 
-    alert();
-    }
- </script>
- <style>
-   *{
-    padding:0;
-    }
-    :root {
-  --Timg:50px;
-  --TimgMargin:2%;
-  --Tcolor:#007bff;
-  --Twidth:96%;
+*{
+  margin: 0;
+  padding: 0;
+}
+#top{
+  width:100%;
+  height:20vh;
+  background-color:#006fff;
+  position:relative;
+  }
+#daohanglan{
+  width:100%;
+  height:20%;
+  background-color:white;
+  bottom:0;
+  position:absolute;
+  display: flex;
+  }
+#daohanglan button{
+  border:none;
+  width:20%;
+  height:100%;
+  background-color:Transparent;
+  margin-left:4%;
+  }
+#kuang{
+  width:100%;
+  height:80vh;
+  background-color:#eee;
+  }
+#cb{
+  position:fixed;
+  top:-10%;
+  }
+ .cc{
+position:absolute;
+height:30px;
+width:30px;
+background-image:url('https://pb.nichi.co/enter-fluid-marriage');
+background-size:100% 100%;
+transition:0.3s;
+z-index:10;
+left:0;
+  }
+#cb:checked~.cc{
+left:91%;
+ }
+.navm{
+/*设置层级*/
+z-index:10;
+/*设置宽度*/
+width:90%;
+/*设置高度*/
+height:100vh;
+/*设置背景颜色*/
+background-color:white;
+background-size: 100% 100% !important;
+/* 固定定位 */
+position:fixed;
+/* 定位后的位置,先把导航栏隐藏起:来*/
+ left: -90%;
+ top:0;
+/* 让点击有个过渡,效果是从右平滑进入*/
+transition:0.3s;
+ }
+#Ckuang{
+  position:relative;
+  width:100%;
+  height:100%;
+  }
+#Ctouxian{
+  width:20vw;
+  height:20vw;
+  border-radius:50%;
+  box-shadow:0px -1px 0px rgba(0,0,0,0.5),0px 1px 0px rgba(0,0,0,0.5);
+  margin:-10vw 40%;
+  background-color:#eee;
+  background-image:url('https://pb.nichi.co/theme-absent-firm');
+  background-size:100% 100%;
+  }
+ #kuai{
+  width:100%;
+  height:100%;
+  color:white;
+  background-color:rgb(0,0,0,0.1);
+  position:relative;
+  }
+ #kuai p{
+   top:5%;
+   left:5%;
+   font-size:40px;
+   position:absolute;
    }
  
- #Dlog{
-   width:90%;
-   height:30vh;
-   border: 2px solid Transparent;
-   border-radius:2px;
-   animation: DlogA 0.2s;
+ #kuai small{
+   top:5%;
+   right:5%;
+   font-size:20px;
+   position:absolute;
+   }
 
-   }
- @keyframes DlogA{
-             0%{
-             width:0%;
-             height:0vh;
-             background-color:black;
-             opacity:0;
-             }
-             100%{
-              width:90%;
-              height:30vh;
-              background-color:white;
-              opacity:1;
-             }
-        }
- #Ttop{
-   height:var(--Timg);
-   margin:var(--TimgMargin);
-   }
- #Tpeitu{
-   width: var(--Timg);
-   height: var(--Timg);
-    background-image:url('https://pb.nichi.co/stage-change-sword');
-   background-size: 100% 100%;
-   float:left;
-   }
- dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.9);
-}
- #TCtouxian{
-   font-size:5vw;
-   color: var(--Tcolor);
-   margin:1%;
-   float:left;
-   }
-  #Tshi{
-    width:var(--Twidth);
-    height:55%;
-    margin:var(--TimgMargin);
-    overflow-y: auto;
-    font-size:3.5vw;
-    text-decoration:underline
-    }
-  #Tshi b{
-    color:#ff587d;
-    }
-  #Tbutton{
-    position:absolute;
-    width:310px;
-    height:25px;
-    margin:var(--TimgMargin);
-    bottom:0;
-    }
-   #Tbutton div{
-     float:right;
-     margin:0 var(--TimgMargin);
-     background-color: Transparent;
-     border-radius:2px;
-     color:black;
-     }
-   #Tbutton :hover{
-            background-color:var(--Tcolor);
-            color: white;
-            border-radius:2px;
-            border: 1px solid #eeeeee;
-        }
- </style>
-  </body>
-</html>
+#CFkuang{
+  background-image:url('https://pb.nichi.co/blast-say-episode');
+  background-size:100% 100%;
+  width:100%;
+  height:22.5%;
+  background-color:blue;
+  }
+#CNkuang{
+  box-shadow:0px -2px 0px rgba(0,0,0,0.9);
+  position:absolute;
+  border-radius:20px 20px 0 0;
+  bottom:0;
+  width:100%;
+  height:80%;
+  background-color:white;
+  }
+  #cb:checked ~ .navm{
+  left:0;
+  top:0;
+ }
+
+  </style>
+ </body>
+ </html>
