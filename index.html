@@ -81,7 +81,7 @@ selectFile.onclick=function (){
     const image=new Image();
     image.src=data;
     image.onload=function (){
-      if(this.width+this.height<=8000){
+      if(this.width+this.height<=6000){
       new Pixel(this);
       }else{
       alert("图片太大了，另选一张吧！");
@@ -117,11 +117,8 @@ class Pixel{
     Canvas.style.height = this.imgHeight *(this.wwdpr/this.imgWidth) + "px";
     cvs.drawImage(img,0,0);
     this.imgData = cvs.getImageData(0,0,this.imgWidth,this.imgHeight).data;
-    if(this.imgWidth+this.imgHeight>=5000){
-      this.sparse=this.sparse>this.dpr*10?this.sparse:this.dpr*10;
-      }else{
-      this.sparse=this.sparse?this.sparse:1;
-      }
+    if(isNaN(this.sparse))this.sparse=1;
+    this.sparse=this.sparse?this.sparse:1;
     this.draw();
     }
   draw(){
