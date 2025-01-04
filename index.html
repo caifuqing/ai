@@ -1,167 +1,172 @@
- <html>
- <head></head>
- <body>
-  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <title>梦生缘</title>
-   <body>
-  <input type="checkbox" id="cb">
-  <div class="navm">
-  <div id="Ckuang"><div id="CFkuang"></div><div id="CNkuang"><div id="Ctouxian"></div></div></div></div>
-  <label for="cb" class="cc"></label>
-  <div id="top"><div id="daohanglan"><button>首页</button><button>随机</button><button></button><button></button></div></div>
-  <div id="kuang"></div>
-  <script>
-  
-  function name(){
-    var time=new Date()
-    var ri = time.getDate();
-    if(ri<10) ri = '0' + ri;
-    var ww = time.getDay();
-    if (ww==0) ww="星期天";
-    if (ww==1) ww="星期一";
-    if (ww==2) ww="星期二";
-    if (ww==3) ww="星期三";
-    if (ww==4) ww="星期四";
-    if (ww==5) ww="星期五";
-    if (ww==6) ww="星期六";
-   time=ri;
-  times=`<div id="kuai"><p>${time}</p><small>${ww}</small></div>`;
-  return times;
-  }
-  CFkuang.innerHTML=name();
-  </script>
-  <style>
-  body{
-    background-color:black;
-    }
-::-webkit-scrollbar {
-/*隐藏滚轮*/
-display: none;
-}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>像素画</title>
+</head>
+<body>
+<style>
 *{
-  margin: 0;
-  padding: 0;
-}
-#top{
-  width:100%;
-  height:20vh;
-  background-color:#006fff;
-  position:relative;
+  margin:0;
+  padding:0;
   }
-#daohanglan{
-  width:100%;
-  height:20%;
-  background-color:white;
-  bottom:0;
-  position:absolute;
-  display: flex;
+html{
+  width:100vw;
+  height:100vh;
+  background-size:cover;
+  background-color:#0066ff;
+  background-position:fixed;
+  background-position:center;
   }
-#daohanglan button{
-  border:none;
-  width:20%;
-  height:100%;
-  background-color:Transparent;
-  margin-left:4%;
-  }
-#kuang{
-  width:100%;
-  height:80vh;
-  background-color:#eee;
-  }
-#cb{
-  position:fixed;
-  top:-10%;
-  }
- .cc{
-position:absolute;
-height:30px;
-width:30px;
-background-image:url('https://pb.nichi.co/enter-fluid-marriage');
-background-size:100% 100%;
-transition:0.3s;
-z-index:10;
-left:0;
-  }
-#cb:checked~.cc{
-left:91%;
- }
-.navm{
-/*设置层级*/
-z-index:10;
-/*设置宽度*/
-width:90%;
-/*设置高度*/
-height:100vh;
-/*设置背景颜色*/
-background-color:white;
-background-size: 100% 100% !important;
-/* 固定定位 */
-position:fixed;
-/* 定位后的位置,先把导航栏隐藏起:来*/
- left: -90%;
- top:0;
-/* 让点击有个过渡,效果是从右平滑进入*/
-transition:0.3s;
- }
-#Ckuang{
-  position:relative;
+body{
   width:100%;
   height:100%;
   }
-#Ctouxian{
-  width:20vw;
-  height:20vw;
-  border-radius:50%;
-  box-shadow:0px -1px 0px rgba(0,0,0,0.5),0px 1px 0px rgba(0,0,0,0.5);
-  margin:-10vw 40%;
-  background-color:#eee;
-  background-image:url('https://pb.nichi.co/theme-absent-firm');
-  background-size:100% 100%;
-  }
- #kuai{
-  width:100%;
-  height:100%;
-  color:white;
-  background-color:rgb(0,0,0,0.1);
-  filter:drop-shadow(0 0 1px #000000);
-  position:relative;
-  }
- #kuai p{
-   top:5%;
-   left:5%;
-   font-size:40px;
-   position:absolute;
-   }
- 
- #kuai small{
-   top:5%;
-   right:5%;
-   font-size:20px;
-   position:absolute;
-   }
-
-#CFkuang{
-  background-image:url('https://pb.nichi.co/blast-say-episode');
-  background-size:100% 100%;
-  width:100%;
-  height:22.5%;
-  background-color:blue;
-  }
-#CNkuang{
-  box-shadow:0px -2px 0px rgba(0,0,0,0.9);
-  position:absolute;
-  border-radius:20px 20px 0 0;
-  bottom:0;
-  width:100%;
-  height:80%;
-  background-color:white;
-  }
-  #cb:checked ~ .navm{
-  left:0;
+#Canvas{
   top:0;
+  left:0;
+  z-index:-1;
+  position:fixed;
+  }
+#selectFile{
+  width:80%;
+  bottom:25%;
+  height:40px;
+  color:white;
+  border:none;
+  outline:none;
+  position:fixed;
+  font-size:20px;
+  margin-top:50px;
+  margin-left:10%;
+  border-radius:2.5px;
+  outline:2px solid #fff;
+  background-color:Transparent;
+  }
+</style>
+<input type="file" id="inputFile" style="display:none;" accept="image/*">
+<canvas id="Canvas"></canvas>
+<button id="selectFile">选取图片</button>
+<script>
+//随机数
+function getRandom(min,max){return Math.floor(Math.random() *(max+1-min)+min);}
+function randomColor(){return `rgb(${getRandom(0,255)},${getRandom(0,255)},${getRandom(0,255)})`;}
+const ctx = Canvas.getContext('2d'),rgb="0,0,0";
+//选取图片文件
+selectFile.onclick=function (){
+  inputFile.click();
+  inputFile.onchange=function (e){
+   const file=this.files[0];if(file){
+    if(file.type.split(/[/]/)[0]==="image"){
+    const reader =new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload=e=>{
+    const data=e.target.result;
+    const image=new Image();
+    image.src=data;
+    image.onload=function (){
+      if(this.width+this.height<=8000){
+      new Pixel(this);
+      }else{
+      alert("图片太大了，另选一张吧！");
+      }
+     }
+    }
+   }else{
+   alert("只能选取图片！！！");
+   }
+  }else{
+  //选取文件已取消
+  }
  }
+}
 
-  </style>
- </body>
- </html>
+class Pixel{
+  constructor(img){
+    this.sparse=40;//稀疏
+    this.x=0;
+    this.y=0;
+    const canvas = document.createElement("canvas");
+    const cvs = canvas.getContext('2d',{willReadFrequently:true});
+    this.imgWidth = img.width;
+    this.imgHeight = img.height;
+    this.dpr = devicePixelRatio;
+    this.wwdpr = window.innerWidth * this.dpr;
+    this.whdpr = window.innerHeight * this.dpr;
+    canvas.width = this.imgWidth;
+    canvas.height = this.imgHeight;
+    Canvas.width = this.imgWidth * this.dpr;
+    Canvas.height = this.imgHeight * this.dpr;
+    Canvas.style.width = this.wwdpr + "px";
+    Canvas.style.height = this.imgHeight *(this.wwdpr/this.imgWidth) + "px";
+    cvs.drawImage(img,0,0);
+    this.imgData = cvs.getImageData(0,0,this.imgWidth,this.imgHeight).data;
+    if(this.imgWidth+this.imgHeight>=5000){
+      this.sparse=this.sparse>this.dpr*10?this.sparse:this.dpr*10;
+      }else{
+      this.sparse=this.sparse?this.sparse:1;
+      }
+    this.draw();
+    }
+  draw(){
+      var thickness=this.sparse/8;
+      for(let i = 0; i < this.imgData.length; i +=4*this.sparse) {
+      ctx.beginPath();
+      ctx.fillStyle = `rgba( ${this.imgData.slice(i,i+4)})`;
+      ctx.fillRect(this.x*this.sparse,this.y*this.sparse,this.sparse,this.sparse);
+      const index=(this.y*this.imgWidth+this.imgWidth)*4*this.sparse;
+      this.borderTop(thickness);
+      this.borderBottom(thickness);
+      this.borderLeft(thickness);
+      this.borderRight(thickness)
+      this.x+=1;
+        if(i==index-this.sparse*4){
+          this.x=0;
+          this.y+=1;
+        }
+      }
+    }
+   borderTop(thickness){
+     ctx.beginPath();
+     ctx.fillStyle="rgba(0,0,0,0.1)";
+     ctx.moveTo(this.x*this.sparse,this.y*this.sparse);
+     ctx.lineTo(this.x*this.sparse+thickness,this.y*this.sparse+thickness);
+     ctx.lineTo(this.x*this.sparse+this.sparse-thickness,this.y*this.sparse+thickness);
+     ctx.lineTo(this.x*this.sparse+this.sparse,this.y*this.sparse);
+     ctx.closePath();
+     ctx.fill();
+     }
+   borderBottom(thickness){
+     ctx.beginPath();  
+     ctx.fillStyle="rgba(0,0,0,0.5)";
+     ctx.moveTo(this.x*this.sparse,this.y*this.sparse+this.sparse);
+     ctx.lineTo(this.x*this.sparse+thickness,this.y*this.sparse+this.sparse-thickness);
+     ctx.lineTo(this.x*this.sparse+this.sparse-thickness,this.y*this.sparse+this.sparse-thickness);
+     ctx.lineTo(this.x*this.sparse+this.sparse,this.y*this.sparse+this.sparse);
+     ctx.closePath();
+     ctx.fill();
+     }
+  borderLeft(thickness){
+     ctx.beginPath();
+     ctx.fillStyle="rgba(0,0,0,0.2)";
+     ctx.moveTo(this.x*this.sparse,this.y*this.sparse);
+     ctx.lineTo(this.x*this.sparse+thickness,this.y*this.sparse+thickness);
+     ctx.lineTo(this.x*this.sparse+thickness,this.y*this.sparse+this.sparse-thickness);
+     ctx.lineTo(this.x*this.sparse,this.y*this.sparse+this.sparse);
+     ctx.closePath();
+     ctx.fill();
+     }
+   borderRight(thickness){
+     ctx.beginPath();  
+     ctx.fillStyle="rgba(0,0,0,0.6)";
+     ctx.moveTo(this.x*this.sparse+this.sparse,this.y*this.sparse);
+     ctx.lineTo(this.x*this.sparse+this.sparse-thickness,this.y*this.sparse+thickness);
+     ctx.lineTo(this.x*this.sparse+this.sparse-thickness,this.y*this.sparse+this.sparse-thickness);
+     ctx.lineTo(this.x*this.sparse+this.sparse,this.y*this.sparse+this.sparse);
+     ctx.closePath();
+     ctx.fill();
+     }
+  }
+</script>
+</body>
+</html>
