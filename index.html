@@ -101,7 +101,7 @@ class Pixel{
   constructor(img){
     this.x=0;
     this.y=0;
-    this.sparse=40;//稀疏
+    this.sparse=+window.prompt("请输入像素稀疏度\n 提示:输入的数字越小处理时间也就越长");//稀疏
     const canvas = document.createElement("canvas");
     const cvs = canvas.getContext('2d',{willReadFrequently:true});
     this.imgWidth = img.width;
@@ -111,8 +111,8 @@ class Pixel{
     this.whdpr = window.innerHeight;
     canvas.width = this.imgWidth;
     canvas.height = this.imgHeight;
-    Canvas.width = this.imgWidth;
-    Canvas.height = this.imgHeight;
+    Canvas.width = this.imgWidth * this.dpr;
+    Canvas.height = this.imgHeight * this.dpr;
     Canvas.style.width = this.wwdpr + "px";
     Canvas.style.height = this.imgHeight *(this.wwdpr/this.imgWidth) + "px";
     cvs.drawImage(img,0,0);
@@ -129,7 +129,7 @@ class Pixel{
       for(let i = 0; i < this.imgData.length; i +=4*this.sparse) {
       ctx.beginPath();
       ctx.fillStyle = `rgba( ${this.imgData.slice(i,i+4)})`;
-      ctx.fillRect(this.x*this.sparse,this.y*this.sparse,this.sparse,this.sparse);
+      ctx.fillRect(this.x*this.sparse * this.dpr,this.y*this.sparse * this.dpr,this.sparse * this.dpr,this.sparse * this.dpr);
       const index=(this.y*this.imgWidth+this.imgWidth)*4*this.sparse;
       this.borderTop(thickness);
       this.borderBottom(thickness);
@@ -145,59 +145,57 @@ class Pixel{
    borderTop(thickness){
      ctx.beginPath();
      ctx.fillStyle="rgba(0,0,0,0.1)";
-     ctx.moveTo(this.x*this.sparse,this.y*this.sparse);
-     ctx.lineTo(this.x*this.sparse+thickness,this.y*this.sparse+thickness);
-     ctx.lineTo(this.x*this.sparse+this.sparse-thickness,this.y*this.sparse+thickness);
-     ctx.lineTo(this.x*this.sparse+this.sparse,this.y*this.sparse);
+     ctx.moveTo((this.x*this.sparse) * this.dpr,(this.y*this.sparse) * this.dpr);
+     ctx.lineTo((this.x*this.sparse+thickness) * this.dpr,(this.y*this.sparse+thickness) * this.dpr);
+     ctx.lineTo((this.x*this.sparse+this.sparse-thickness) * this.dpr,(this.y*this.sparse+thickness) * this.dpr);
+     ctx.lineTo((this.x*this.sparse+this.sparse) * this.dpr,(this.y*this.sparse) * this.dpr);
      ctx.closePath();
      ctx.fill();
      }
    borderBottom(thickness){
      ctx.beginPath();  
      ctx.fillStyle="rgba(0,0,0,0.5)";
-     ctx.moveTo(this.x*this.sparse,this.y*this.sparse+this.sparse);
-     ctx.lineTo(this.x*this.sparse+thickness,this.y*this.sparse+this.sparse-thickness);
-     ctx.lineTo(this.x*this.sparse+this.sparse-thickness,this.y*this.sparse+this.sparse-thickness);
-     ctx.lineTo(this.x*this.sparse+this.sparse,this.y*this.sparse+this.sparse);
+     ctx.moveTo((this.x*this.sparse) * this.dpr,(this.y*this.sparse+this.sparse) * this.dpr);
+     ctx.lineTo((this.x*this.sparse+thickness) * this.dpr,(this.y*this.sparse+this.sparse-thickness) * this.dpr);
+     ctx.lineTo((this.x*this.sparse+this.sparse-thickness) * this.dpr,(this.y*this.sparse+this.sparse-thickness) * this.dpr);
+     ctx.lineTo((this.x*this.sparse+this.sparse) * this.dpr,(this.y*this.sparse+this.sparse) * this.dpr);
      ctx.closePath();
      ctx.fill();
      }
   borderLeft(thickness){
      ctx.beginPath();
      ctx.fillStyle="rgba(0,0,0,0.2)";
-     ctx.moveTo(this.x*this.sparse,this.y*this.sparse);
-     ctx.lineTo(this.x*this.sparse+thickness,this.y*this.sparse+thickness);
-     ctx.lineTo(this.x*this.sparse+thickness,this.y*this.sparse+this.sparse-thickness);
-     ctx.lineTo(this.x*this.sparse,this.y*this.sparse+this.sparse);
+     ctx.moveTo((this.x*this.sparse) * this.dpr,(this.y*this.sparse) * this.dpr);
+     ctx.lineTo((this.x*this.sparse+thickness) * this.dpr,(this.y*this.sparse+thickness) * this.dpr);
+     ctx.lineTo((this.x*this.sparse+thickness) * this.dpr,(this.y*this.sparse+this.sparse-thickness) * this.dpr);
+     ctx.lineTo((this.x*this.sparse) * this.dpr,(this.y*this.sparse+this.sparse) * this.dpr);
      ctx.closePath();
      ctx.fill();
      }
    borderRight(thickness){
      ctx.beginPath();  
      ctx.fillStyle="rgba(0,0,0,0.6)";
-     ctx.moveTo(this.x*this.sparse+this.sparse,this.y*this.sparse);
-     ctx.lineTo(this.x*this.sparse+this.sparse-thickness,this.y*this.sparse+thickness);
-     ctx.lineTo(this.x*this.sparse+this.sparse-thickness,this.y*this.sparse+this.sparse-thickness);
-     ctx.lineTo(this.x*this.sparse+this.sparse,this.y*this.sparse+this.sparse);
+     ctx.moveTo((this.x*this.sparse+this.sparse) * this.dpr,(this.y*this.sparse) * this.dpr);
+     ctx.lineTo((this.x*this.sparse+this.sparse-thickness) * this.dpr,(this.y*this.sparse+thickness) * this.dpr);
+     ctx.lineTo((this.x*this.sparse+this.sparse-thickness) * this.dpr,(this.y*this.sparse+this.sparse-thickness) * this.dpr);
+     ctx.lineTo((this.x*this.sparse+this.sparse) * this.dpr,(this.y*this.sparse+this.sparse) * this.dpr);
      ctx.closePath();
      ctx.fill();
      }
   }
+
 download.onclick=function (){
-exportCanvasAsPNG("Canvas","pixel.png")
-}
-function exportCanvasAsPNG(id, fileName) {
-    var canvasElement = document.getElementById(id);
+    var canvasElement = document.getElementById("Canvas");
     var MIME_TYPE = "image/png";
     var imgURL = canvasElement.toDataURL(MIME_TYPE);
     var dlLink = document.createElement('a');
-    dlLink.download = fileName;
+    dlLink.download = "pixel.png";
     dlLink.href = imgURL;
     dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
     document.body.appendChild(dlLink);
     dlLink.click();
     document.body.removeChild(dlLink);
-}
+   }
 </script>
 </body>
 </html>
