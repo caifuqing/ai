@@ -99,9 +99,9 @@ selectFile.onclick=function (){
 
 class Pixel{
   constructor(img){
-    this.sparse=10;//稀疏
     this.x=0;
     this.y=0;
+    this.sparse=40;//稀疏
     const canvas = document.createElement("canvas");
     const cvs = canvas.getContext('2d',{willReadFrequently:true});
     this.imgWidth = img.width;
