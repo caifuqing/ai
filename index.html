@@ -99,7 +99,7 @@ selectFile.onclick=function (){
 
 class Pixel{
   constructor(img){
-    this.sparse=40;//稀疏
+    this.sparse=10;//稀疏
     this.x=0;
     this.y=0;
     const canvas = document.createElement("canvas");
@@ -107,12 +107,12 @@ class Pixel{
     this.imgWidth = img.width;
     this.imgHeight = img.height;
     this.dpr = devicePixelRatio;
-    this.wwdpr = window.innerWidth * this.dpr;
-    this.whdpr = window.innerHeight * this.dpr;
+    this.wwdpr = window.innerWidth;
+    this.whdpr = window.innerHeight;
     canvas.width = this.imgWidth;
     canvas.height = this.imgHeight;
-    Canvas.width = this.imgWidth * this.dpr;
-    Canvas.height = this.imgHeight * this.dpr;
+    Canvas.width = this.imgWidth;
+    Canvas.height = this.imgHeight;
     Canvas.style.width = this.wwdpr + "px";
     Canvas.style.height = this.imgHeight *(this.wwdpr/this.imgWidth) + "px";
     cvs.drawImage(img,0,0);
