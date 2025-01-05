@@ -106,7 +106,7 @@ class Pixel{
     const cvs = canvas.getContext('2d',{willReadFrequently:true});
     this.imgWidth = img.width;
     this.imgHeight = img.height;
-    this.dpr = devicePixelRatio*2;
+    this.dpr = devicePixelRatio;
     this.wwdpr = window.innerWidth;
     this.whdpr = window.innerHeight;
     canvas.width = this.imgWidth;
