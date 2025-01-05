@@ -106,7 +106,7 @@ class Pixel{
     const cvs = canvas.getContext('2d',{willReadFrequently:true});
     this.imgWidth = img.width;
     this.imgHeight = img.height;
-    this.dpr = devicePixelRatio;
+    this.dpr = devicePixelRatio*2;
     this.wwdpr = window.innerWidth;
     this.whdpr = window.innerHeight;
     canvas.width = this.imgWidth;
@@ -122,7 +122,7 @@ class Pixel{
     this.draw();
     }
   draw(){
-      var thickness=this.sparse/8;
+      var thickness=this.sparse==1?0:this.sparse/8;
       for(let i = 0; i < this.imgData.length; i +=4*this.sparse) {
       ctx.beginPath();
       ctx.fillStyle = `rgba( ${this.imgData.slice(i,i+4)})`;
